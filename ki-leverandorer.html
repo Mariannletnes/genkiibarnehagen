@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hvilken KI-løsning har din barnehage? · GenAI i barnehagen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --marine:      #1e2a45;
+  --marine-deep: #161f33;
+  --sage:        #5e6e67;
+  --mauve:       #9e7a8a;
+  --mauve-light: #c9a0b0;
+  --cream:       #f0ece2;
+  --lin:         #d9d5cc;
+  --lin-dark:    #cac6bc;
+  --warmgray:    #555250;
+  --text:        #1e2a45;
+  --text-soft:   #5a5650;
+  --text-pale:   #9a9590;
+  --radius-lg:   14px;
+  --radius-sm:   8px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--text); background: var(--cream); -webkit-font-smoothing: antialiased; }
+
+nav { background: var(--marine); padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 54px; position: sticky; top: 0; z-index: 100; border-bottom: 2.5px solid var(--mauve); }
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+.nav-bubble { width: 30px; height: 30px; background: var(--mauve); border-radius: 6px 6px 6px 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #fff; flex-shrink: 0; }
+.nav-wordmark { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); }
+.nav-back { display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; font-weight: 300; transition: color 0.15s; }
+.nav-back:hover { color: rgba(255,255,255,0.8); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* HERO */
+.hero { background: var(--marine); padding: 5rem 3rem 4.5rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(158,122,138,0.12) 0%, transparent 60%); pointer-events: none; }
+.hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-kicker { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mauve); margin-bottom: 1.25rem; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.05; color: var(--cream); letter-spacing: -0.025em; margin-bottom: 0.6rem; }
+.hero-subtitle { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--mauve-light); margin-bottom: 1.5rem; }
+.hero-desc { font-size: 1rem; font-weight: 300; color: rgba(240,236,226,0.45); max-width: 620px; line-height: 1.8; }
+
+/* CONTENT */
+.content { max-width: 1080px; margin: 0 auto; padding: 5rem 3rem 6rem; }
+
+.section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; }
+.section-heading { font-family: 'Fraunces', serif; font-size: 1.75rem; font-weight: 300; color: var(--text); letter-spacing: -0.01em; margin-bottom: 2.5rem; }
+
+/* CARDS GRID */
+.cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
+
+.løsning-card {
+  background: var(--lin);
+  border: 1px solid var(--lin-dark);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.løsning-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(30,42,69,0.09); }
+
+.card-header {
+  padding: 1.5rem 1.75rem 1.25rem;
+  border-bottom: 1px solid var(--lin-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.card-header-left {}
+
+.card-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--marine);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
+}
+
+.card-sub {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-pale);
+  line-height: 1.5;
+}
+
+.card-badge {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge-vanlig { background: rgba(94,110,103,0.15); color: var(--sage); }
+.badge-gratis { background: rgba(47,84,69,0.12); color: #3a6855; }
+.badge-privat { background: rgba(158,122,138,0.15); color: var(--mauve); }
+.badge-kommunal { background: rgba(30,42,69,0.1); color: var(--marine); }
+
+/* Specs table */
+.card-specs {
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-bottom: 1px solid var(--lin-dark);
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  gap: 1rem;
+}
+.spec-row:last-child { border-bottom: none; }
+
+.spec-key {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-pale);
+  letter-spacing: 0.03em;
+}
+
+.spec-val {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text);
+  text-align: right;
+}
+
+.spec-val.good { color: var(--sage); }
+.spec-val.warn { color: var(--mauve); }
+.spec-val.neutral { color: var(--text-soft); }
+
+/* Card note */
+.card-note {
+  padding: 1.25rem 1.75rem;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.card-note strong { font-weight: 500; color: var(--text); }
+.card-note.warn-note { color: var(--mauve); }
+
+/* PRIVAT BRUK — fullwidth */
+.privat-card {
+  background: var(--marine);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2rem;
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  border-left: 4px solid var(--mauve);
+}
+
+.privat-icon { flex-shrink: 0; }
+.privat-icon svg { width: 44px; height: 44px; }
+
+.privat-text {}
+.privat-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mauve); margin-bottom: 0.4rem; }
+.privat-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 300; color: var(--cream); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.privat-desc { font-size: 0.85rem; font-weight: 300; color: rgba(240,236,226,0.5); line-height: 1.65; max-width: 580px; }
+.privat-desc strong { color: rgba(240,236,226,0.8); font-weight: 500; }
+
+/* BOTTOM RULE */
+.bottom-rule {
+  background: var(--warmgray);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.25rem;
+  margin-bottom: 4rem;
+}
+.bottom-rule-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mauve-light); margin-bottom: 0.75rem; }
+.bottom-rule p { font-size: 0.9rem; font-weight: 300; color: rgba(240,236,226,0.65); line-height: 1.75; }
+.bottom-rule p + p { margin-top: 0.75rem; }
+.bottom-rule a { color: var(--mauve-light); }
+
+/* page nav */
+.page-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 3rem; border-top: 1px solid var(--lin); }
+.page-nav-card { background: var(--lin); border: 1px solid var(--lin-dark); border-radius: var(--radius-lg); padding: 1.5rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.4rem; transition: border-color 0.2s, transform 0.2s; }
+.page-nav-card:hover { border-color: var(--mauve); transform: translateY(-2px); }
+.page-nav-dir { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-pale); }
+.page-nav-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 300; color: var(--marine); letter-spacing: -0.01em; }
+.page-nav-card.next { text-align: right; }
+
+footer { background: var(--marine); border-top: 2.5px solid var(--mauve); padding: 1.75rem 3rem; }
+.footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.footer-info { font-size: 12px; font-weight: 300; color: rgba(240,236,226,0.3); line-height: 1.8; }
+.footer-info a { color: var(--mauve-light); text-decoration: none; }
+
+@media (max-width: 860px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .privat-card { grid-template-columns: 1fr; }
+  nav, .hero, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.løsning-card { animation: fadeUp 0.4s ease both; }
+.løsning-card:nth-child(2) { animation-delay: 0.1s; }
+.løsning-card:nth-child(3) { animation-delay: 0.15s; }
+.løsning-card:nth-child(4) { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-bubble">KI</div>
+    <span class="nav-wordmark">GenAI i barnehagen</span>
+  </a>
+  <a class="nav-back" href="administrativ-stotte.html">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+    Tilbake
+  </a>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Ressurs · Ansvarlig bruk</div>
+    <h1>Hvilken KI-løsning<br>har din barnehage?</h1>
+    <div class="hero-subtitle">Ikke alle KI-verktøy er like — og valget har konsekvenser</div>
+    <p class="hero-desc">
+      Løsningen din barnehage bruker avgjør hva du lovlig kan gjøre med KI i jobbsammenheng. Snakk med styrer om hvilken løsning barnehagen har — og hva som gjelder for deg.
+    </p>
+  </div>
+</header>
+
+<main class="content">
+
+  <div class="section-label">Godkjente løsninger</div>
+  <div class="section-heading">Løsninger med databehandleravtale</div>
+
+  <div class="cards-grid">
+
+    <!-- Microsoft Copilot -->
+    <div class="løsning-card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-name">Microsoft Copilot</div>
+          <div class="card-sub">M365-barnehager · GPT via Azure</div>
+        </div>
+        <span class="card-badge badge-vanlig">Vanligst i kommuner</span>
+      </div>
+      <div class="card-specs">
+        <div class="spec-row">
+          <span class="spec-key">Innlogging</span>
+          <span class="spec-val good">Ja — Microsoft 365-konto</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Databehandleravtale</span>
+          <span class="spec-val good">Ja — Microsoft</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Trener på dine data</span>
+          <span class="spec-val good">Nei (enterprise-vilkår)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Kostnad</span>
+          <span class="spec-val neutral">Lisens via M365</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Tilpasset barnehage</span>
+          <span class="spec-val neutral">Delvis</span>
+        </div>
+      </div>
+      <div class="card-note">
+        <strong>Husk:</strong> Selv med enterprise-avtale skal du aldri legge inn personopplysninger om barn eller foresatte. DPIA må være gjennomført av kommunen.
+      </div>
+    </div>
+
+    <!-- Google Gemini -->
+    <div class="løsning-card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-name">Google Gemini</div>
+          <div class="card-sub">Google Workspace-barnehager</div>
+        </div>
+        <span class="card-badge badge-vanlig">Google-kommuner</span>
+      </div>
+      <div class="card-specs">
+        <div class="spec-row">
+          <span class="spec-key">Innlogging</span>
+          <span class="spec-val good">Ja — Google Workspace-konto</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Databehandleravtale</span>
+          <span class="spec-val good">Ja — Google</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Trener på dine data</span>
+          <span class="spec-val good">Nei (edu-vilkår)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Kostnad</span>
+          <span class="spec-val neutral">Lisens via Workspace</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Tilpasset barnehage</span>
+          <span class="spec-val neutral">Delvis</span>
+        </div>
+      </div>
+      <div class="card-note">
+        <strong>Husk:</strong> KS har gjennomført nasjonal DPIA for Google — sjekk om kommunen er tilknyttet denne avtalen før du tar verktøyet i bruk.
+      </div>
+    </div>
+
+    <!-- Kommunal KI-portal -->
+    <div class="løsning-card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-name">Kommunal KI-portal</div>
+          <div class="card-sub">OpenAI / Claude via API · kommunen drifter</div>
+        </div>
+        <span class="card-badge badge-kommunal">Kommunen styrer</span>
+      </div>
+      <div class="card-specs">
+        <div class="spec-row">
+          <span class="spec-key">Innlogging</span>
+          <span class="spec-val good">Varierer — ofte uten personlig konto</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Databehandleravtale</span>
+          <span class="spec-val good">Ja — med API-leverandør</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Trener på dine data</span>
+          <span class="spec-val good">Nei (API-vilkår)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Kostnad</span>
+          <span class="spec-val neutral">API-kostnad + kommunal drift</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Tilpasset barnehage</span>
+          <span class="spec-val good">Ja — kommunen setter rammer</span>
+        </div>
+      </div>
+      <div class="card-note">
+        <strong>Fordel:</strong> Kommunen kontrollerer hva modellen kan svare på og hvilke data som behandles. Ingen personlig brukerkonto betyr mindre persondata knyttet til din bruk.
+      </div>
+    </div>
+
+    <!-- Sektorspesifikk løsning -->
+    <div class="løsning-card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-name">Sektorspesifikk løsning</div>
+          <div class="card-sub">KI tilpasset barnehage- og skolesektoren</div>
+        </div>
+        <span class="card-badge badge-gratis">Under utvikling</span>
+      </div>
+      <div class="card-specs">
+        <div class="spec-row">
+          <span class="spec-key">Innlogging</span>
+          <span class="spec-val good">Ja — Feide</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Databehandleravtale</span>
+          <span class="spec-val good">Ja — nasjonal avtale</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Trener på dine data</span>
+          <span class="spec-val good">Nei</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Kostnad</span>
+          <span class="spec-val good">Finansiert nasjonalt</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Tilpasset barnehage</span>
+          <span class="spec-val good">Ja — faglig kontekst</span>
+        </div>
+      </div>
+      <div class="card-note">
+        <strong>Idealet:</strong> En nasjonal, sektorspesifikk KI-løsning for barnehage og skole med Feide-innlogging, nasjonal DPIA og faglig forankring. Følg med på utviklingen — dette jobbes det med.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRIVAT BRUK ADVARSEL -->
+  <div class="privat-card">
+    <div class="privat-icon">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 4 L44 40 H4 Z" fill="rgba(158,122,138,0.15)" stroke="#9e7a8a" stroke-width="2" stroke-linejoin="round"/>
+        <line x1="24" y1="18" x2="24" y2="29" stroke="#9e7a8a" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="24" cy="34.5" r="1.75" fill="#9e7a8a"/>
+      </svg>
+    </div>
+    <div class="privat-text">
+      <div class="privat-label">Viktig å vite</div>
+      <div class="privat-title">Privat ChatGPT, Claude eller Gemini-konto</div>
+      <div class="privat-desc">
+        Mange barnehagelærere bruker sine <strong>private kontoer</strong> i ChatGPT, Claude eller Gemini til jobbrelaterte oppgaver — uten å være klar over risikoen.
+        En privat konto har <strong>ingen databehandleravtale</strong> med barnehagen. Det du skriver lagres og kan brukes til trening av modellen.
+        <strong>Bruk aldri private KI-kontoer til noe som involverer barn, foresatte eller barnehageinformasjon.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUNNREGEL -->
+  <div class="bottom-rule">
+    <div class="bottom-rule-label">Husk alltid</div>
+    <p>Uansett hvilken løsning din barnehage har: <strong style="color:rgba(240,236,226,0.85);">kommunen/barnehageeier skal ha gjennomført DPIA og inngått databehandleravtale</strong> før KI tas i bruk til noe som berører persondata.</p>
+    <p>Er du usikker på hvilken løsning din barnehage har — spør styrer. Det er lederens ansvar å ha oversikt over hvilke KI-verktøy som er godkjent for bruk. Les mer hos <a href="https://www.udir.no/kvalitet-og-kompetanse/digitalisering-skole/kunstig-intelligens-ki-i-skolen/personvern-ki/" target="_blank">Udir om personvern og KI →</a></p>
+  </div>
+
+  <nav class="page-nav">
+    <a class="page-nav-card" href="administrativ-stotte.html">
+      <div class="page-nav-dir">← Tilbake</div>
+      <div class="page-nav-title">Administrativ støtte</div>
+    </a>
+    <a class="page-nav-card next" href="index.html">
+      <div class="page-nav-dir">Til oversikten</div>
+      <div class="page-nav-title">Forsiden</div>
+    </a>
+  </nav>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <div class="nav-bubble">KI</div>
+      <span class="nav-wordmark">GenAI i barnehagen</span>
+    </div>
+    <div class="footer-info">
+      Mari-Ann Letnes &nbsp;·&nbsp; NTNU &nbsp;·&nbsp;
+      <a href="mailto:mari.ann.letnes@ntnu.no">mari.ann.letnes@ntnu.no</a><br>
+      Presentert på NKUL 2026, Trondheim
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

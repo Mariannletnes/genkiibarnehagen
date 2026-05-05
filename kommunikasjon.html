@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kommunikasjon · GenAI i barnehagen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --marine: #1e2a45; --marine-deep: #161f33; --forest: #5e6e67;
+  --mauve: #9e7a8a; --mauve-light: #c9a0b0; --cream: #f0ece2;
+  --lin: #d9d5cc; --lin-dark: #cac6bc; --warmgray: #555250;
+  --text: #1e2a45; --text-soft: #5a5650; --text-pale: #9a9590;
+  --radius-lg: 14px; --radius-sm: 8px; --accent: #9e7a8a;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--text); background: var(--cream); -webkit-font-smoothing: antialiased; }
+nav { background: var(--marine); padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 54px; position: sticky; top: 0; z-index: 100; border-bottom: 2.5px solid var(--mauve); }
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+.nav-bubble { width: 30px; height: 30px; background: var(--mauve); border-radius: 6px 6px 6px 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #fff; flex-shrink: 0; }
+.nav-wordmark { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); }
+.nav-back { display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; font-weight: 300; transition: color 0.15s; }
+.nav-back:hover { color: rgba(255,255,255,0.8); }
+.nav-back svg { width: 14px; height: 14px; }
+.hero { background: var(--marine); padding: 5rem 3rem 4.5rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(158,122,138,0.12) 0%, transparent 60%); pointer-events: none; }
+.hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: end; }
+.hero-breadcrumb { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mauve-light); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+.hero-breadcrumb span { opacity: 0.5; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 300; line-height: 1.05; color: var(--cream); letter-spacing: -0.025em; margin-bottom: 0.5rem; }
+.hero-subtitle { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--mauve-light); margin-bottom: 1.75rem; letter-spacing: -0.01em; }
+.hero-desc { font-size: 1rem; font-weight: 300; color: rgba(240,236,226,0.5); max-width: 520px; line-height: 1.8; }
+.content { max-width: 1080px; margin: 0 auto; padding: 5rem 3rem 6rem; }
+.content-intro { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 300; color: var(--text); line-height: 1.6; margin-bottom: 4rem; padding-bottom: 3rem; border-bottom: 1px solid var(--lin); letter-spacing: -0.01em; }
+.sections-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 4rem; }
+.section-block { background: var(--lin); border: 1px solid var(--lin-dark); border-radius: var(--radius-lg); padding: 2rem 1.75rem; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.section-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.section-block:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(158,122,138,0.12); }
+.section-block:hover::before { transform: scaleX(1); }
+.block-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.block-title { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 300; color: var(--marine); margin-bottom: 1.25rem; line-height: 1.2; letter-spacing: -0.01em; }
+.block-items { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.block-items li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.88rem; font-weight: 300; color: var(--text-soft); line-height: 1.55; }
+.block-items li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 0.45em; opacity: 0.7; }
+.age-section { margin-bottom: 4rem; }
+.age-section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mauve); margin-bottom: 0.5rem; }
+.age-section-title { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 300; color: var(--text); margin-bottom: 2.5rem; letter-spacing: -0.01em; }
+.age-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--lin-dark); border-radius: var(--radius-lg); overflow: hidden; }
+.age-card { padding: 2rem 1.75rem; border-right: 1px solid var(--lin-dark); background: var(--cream); }
+.age-card:last-child { border-right: none; }
+.age-tag { display: inline-flex; align-items: center; background: var(--mauve); color: #fff; font-size: 11px; font-weight: 400; padding: 4px 12px; border-radius: 100px; margin-bottom: 1.1rem; letter-spacing: 0.03em; }
+.age-card-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 300; font-style: italic; color: var(--mauve); margin-bottom: 0.75rem; line-height: 1.3; }
+.age-card p { font-size: 0.85rem; font-weight: 300; color: var(--text-soft); line-height: 1.7; }
+.reflection-box { background: var(--warmgray); border-radius: var(--radius-lg); padding: 2.5rem 2.25rem; margin-bottom: 4rem; }
+.reflection-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mauve-light); margin-bottom: 1rem; }
+.reflection-box blockquote { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 300; font-style: italic; color: rgba(240,236,226,0.8); line-height: 1.6; letter-spacing: -0.01em; }
+.page-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 3rem; border-top: 1px solid var(--lin); }
+.page-nav-card { background: var(--lin); border: 1px solid var(--lin-dark); border-radius: var(--radius-lg); padding: 1.5rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.4rem; transition: border-color 0.2s, transform 0.2s; }
+.page-nav-card:hover { border-color: var(--mauve); transform: translateY(-2px); }
+.page-nav-dir { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-pale); }
+.page-nav-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 300; color: var(--marine); letter-spacing: -0.01em; }
+.page-nav-card.next { text-align: right; }
+footer { background: var(--marine); border-top: 2.5px solid var(--mauve); padding: 1.75rem 3rem; }
+.footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.footer-info { font-size: 12px; font-weight: 300; color: rgba(240,236,226,0.3); line-height: 1.8; }
+.footer-info a { color: var(--mauve-light); text-decoration: none; }
+@media (max-width: 860px) {
+  .sections-grid { grid-template-columns: 1fr; }
+  .age-grid { grid-template-columns: 1fr; }
+  .age-card { border-right: none; border-bottom: 1px solid var(--lin-dark); }
+  .age-card:last-child { border-bottom: none; }
+  .hero-inner { grid-template-columns: 1fr; }
+  nav, .hero, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.hero-inner > * { animation: fadeUp 0.5s ease both; }
+.hero-inner > *:nth-child(2) { animation-delay: 0.1s; }
+.section-block, .age-card, .reflection-box { animation: fadeUp 0.5s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-bubble">KI</div>
+    <span class="nav-wordmark">GenAI i barnehagen</span>
+  </a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+    Tilbake til oversikt
+  </a>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-breadcrumb">
+        <span>Med barna</span>
+        <span>·</span>
+        Selvuttrykk
+      </div>
+      <h1>Kommunikasjon</h1>
+      <div class="hero-subtitle">KI som støttestillas for barnas stemme</div>
+      <p class="hero-desc">
+        Der kommunikasjon i skolen ofte handler om å produsere tekster for vurdering, handler det i barnehagen om digitalt selvuttrykk. KI fungerer som et stillas som gjør det mulig for barnet å uttrykke ideer, følelser og historier før de mestrer skriftspråket.
+      </p>
+    </div>
+    <div>
+      <img src="kommunikasjon.png" alt="Kommunikasjon illustrasjon" style="width:340px; height:340px; object-fit:contain;"/>
+    </div>
+  </div>
+</header>
+
+<main class="content">
+
+  <p class="content-intro">
+    Barnets stemme har verdi — også før den er skriftlig. KI kan fange, formidle og forsterke barns kommunikasjon på måter som gir dem reell innflytelse og synlighet i barnehagens fellesskap.
+  </p>
+
+  <div class="sections-grid">
+
+    <div class="section-block">
+      <div class="block-label">Barnas ord blir synlige</div>
+      <div class="block-title">Tale om til tekst og bilde</div>
+      <ul class="block-items">
+        <li>Barns muntlige fortellinger kan transkriberes og visualiseres — men aldri lagres som lydopptak uten skriftlig samtykke fra foresatte</li>
+        <li>Stemmen blir til skrift som barnet selv kan «lese» høyt igjen</li>
+        <li>Viktig: all innsamling av barnestemmer og persondata krever samtykke og skal følge barnehagens GDPR-rutiner</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Demokratisering og inkludering</div>
+      <div class="block-title">Alle barn får en stemme</div>
+      <ul class="block-items">
+        <li>KI kan oversette barnas uttrykk mellom ulike språk</li>
+        <li>Tale kan omgjøres til bilde eller symboler for barn med kommunikasjonsvansker</li>
+        <li>Alle barn, uavhengig av bakgrunn eller funksjonsnivå, kan delta i fellesskapet</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Multimodale fortellinger</div>
+      <div class="block-title">Kommunikasjon er mer enn ord</div>
+      <ul class="block-items">
+        <li>Barn kan kombinere egengenererte bilder og musikk til sammensatte uttrykk</li>
+        <li>Sammensatte uttrykk formidler stemninger og historier på nye måter</li>
+        <li>Digitale fortellinger kan deles med familien — forutsatt skriftlig samtykke og at materialet ikke inneholder personopplysninger om andre barn</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Autentisitet som danning</div>
+      <div class="block-title">Bevare barnets originale uttrykk</div>
+      <ul class="block-items">
+        <li>Pedagogen sikrer at KI ikke «retter på» eller polerer barnets språk</li>
+        <li>KI skal fungere som en nøytral formidler av barnets faktiske tanke</li>
+        <li>Det uferdige og uvente i barns uttrykk har pedagogisk verdi i seg selv</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="reflection-box">
+    <div class="reflection-label">Pedagogisk perspektiv</div>
+    <blockquote>
+      Barnets stemme har verdi lenge før den er skriftlig. KI kan løfte frem det barnet faktisk sier — men pedagogen må vokte over at teknologien ikke glatter ut det som gjør barnets uttrykk unikt.
+    </blockquote>
+  </div>
+
+  <div class="age-section">
+    <div class="age-section-label">Differensiering</div>
+    <div class="age-section-title">Tilpasset de ulike aldersgruppene</div>
+    <div class="age-grid">
+      <div class="age-card">
+        <div class="age-tag">0–3 år</div>
+        <div class="age-card-title">Utvidet uttrykk</div>
+        <p>KI fanger opp lyder eller bevegelser og oversetter dem til visuelle farger eller former på en skjerm.<br><br>Slik at barnet «ser» sitt eget uttrykk ta form. En enkel og magisk form for selvbekreftelse.</p>
+      </div>
+      <div class="age-card">
+        <div class="age-tag">3–4 år</div>
+        <div class="age-card-title">Kommunikasjon som medskaping</div>
+        <p>Barna dikterer korte setninger eller beskrivelser, og ser hvordan ordene deres skaper karakterer eller miljøer i en digital verden.<br><br>«Si hvem monsteret er, og KI tegner det» — en direkte linje fra tanke til bilde.</p>
+      </div>
+      <div class="age-card">
+        <div class="age-tag">5–6 år</div>
+        <div class="age-card-title">Publisering og refleksjon</div>
+        <p>De eldste barna kan lage egne digitale produkter — lydfortellinger, bildebøker, enkle animasjoner.<br><br>De erfarer hva det vil si å ha et budskap og et ferdig produkt.<br><br><strong style="color:var(--mauve);">Merk:</strong> publisering ut over barnehagen krever skriftlig samtykke fra alle foresatte det gjelder.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="page-nav">
+    <a class="page-nav-card" href="interaksjon.html">
+      <div class="page-nav-dir">← Forrige</div>
+      <div class="page-nav-title">Interaksjon</div>
+    </a>
+    <a class="page-nav-card next" href="visualisering.html">
+      <div class="page-nav-dir">Neste →</div>
+      <div class="page-nav-title">Visualisering</div>
+    </a>
+  </nav>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <div class="nav-bubble">KI</div>
+      <span class="nav-wordmark">GenAI i barnehagen</span>
+    </div>
+    <div class="footer-info">
+      Mari-Ann Letnes &nbsp;·&nbsp; NTNU &nbsp;·&nbsp;
+      <a href="mailto:mari.ann.letnes@ntnu.no">mari.ann.letnes@ntnu.no</a><br>
+      Presentert på NKUL 2026, Trondheim
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

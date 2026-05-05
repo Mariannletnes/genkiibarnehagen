@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrativ støtte · GenAI i barnehagen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --marine: #1e2a45; --marine-deep: #161f33; --forest: #5e6e67;
+  --mauve: #9e7a8a; --mauve-light: #c9a0b0; --cream: #f0ece2;
+  --lin: #d9d5cc; --lin-dark: #cac6bc; --warmgray: #555250;
+  --text: #1e2a45; --text-soft: #5a5650; --text-pale: #9a9590;
+  --radius-lg: 14px; --radius-sm: 8px; --accent: #5e6e67;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--text); background: var(--cream); -webkit-font-smoothing: antialiased; }
+nav { background: var(--marine); padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 54px; position: sticky; top: 0; z-index: 100; border-bottom: 2.5px solid var(--mauve); }
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+.nav-bubble { width: 30px; height: 30px; background: var(--mauve); border-radius: 6px 6px 6px 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #fff; flex-shrink: 0; }
+.nav-wordmark { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); }
+.nav-back { display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; font-weight: 300; transition: color 0.15s; }
+.nav-back:hover { color: rgba(255,255,255,0.8); }
+.nav-back svg { width: 14px; height: 14px; }
+.hero { background: var(--marine); padding: 5rem 3rem 4.5rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(47,84,69,0.15) 0%, transparent 60%); pointer-events: none; }
+.hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: end; }
+.hero-breadcrumb { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mauve); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+.hero-breadcrumb span { opacity: 0.5; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 300; line-height: 1.05; color: var(--cream); letter-spacing: -0.025em; margin-bottom: 0.5rem; }
+.hero-subtitle { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--mauve-light); margin-bottom: 1.75rem; letter-spacing: -0.01em; }
+.hero-desc { font-size: 1rem; font-weight: 300; color: rgba(240,236,226,0.5); max-width: 520px; line-height: 1.8; }
+.content { max-width: 1080px; margin: 0 auto; padding: 5rem 3rem 6rem; }
+.content-intro { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 300; color: var(--text); line-height: 1.6; margin-bottom: 4rem; padding-bottom: 3rem; border-bottom: 1px solid var(--lin); letter-spacing: -0.01em; }
+.sections-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 4rem; }
+.section-block { background: var(--lin); border: 1px solid var(--lin-dark); border-radius: var(--radius-lg); padding: 2rem 1.75rem; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.section-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.section-block:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(30,42,69,0.09); }
+.section-block:hover::before { transform: scaleX(1); }
+.block-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.block-title { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 300; color: var(--marine); margin-bottom: 1.25rem; line-height: 1.2; letter-spacing: -0.01em; }
+.block-items { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.block-items li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.88rem; font-weight: 300; color: var(--text-soft); line-height: 1.55; }
+.block-items li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 0.45em; opacity: 0.7; }
+.age-section { margin-bottom: 4rem; }
+.age-section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest); margin-bottom: 0.5rem; }
+.age-section-title { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 300; color: var(--text); margin-bottom: 2.5rem; letter-spacing: -0.01em; }
+.age-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--lin-dark); border-radius: var(--radius-lg); overflow: hidden; }
+.age-card { padding: 2rem 1.75rem; border-right: 1px solid var(--lin-dark); background: var(--cream); }
+.age-card:last-child { border-right: none; }
+.age-tag { display: inline-flex; align-items: center; background: var(--marine); color: var(--cream); font-size: 11px; font-weight: 400; padding: 4px 12px; border-radius: 100px; margin-bottom: 1.1rem; letter-spacing: 0.03em; }
+.age-card-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 300; font-style: italic; color: var(--mauve); margin-bottom: 0.75rem; line-height: 1.3; letter-spacing: -0.01em; }
+.age-card p { font-size: 0.85rem; font-weight: 300; color: var(--text-soft); line-height: 1.7; }
+.reflection-box { background: var(--warmgray); border-radius: var(--radius-lg); padding: 2.5rem 2.25rem; margin-bottom: 4rem; }
+.reflection-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mauve-light); margin-bottom: 1rem; }
+.reflection-box blockquote { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 300; font-style: italic; color: rgba(240,236,226,0.8); line-height: 1.6; letter-spacing: -0.01em; }
+.page-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 3rem; border-top: 1px solid var(--lin); }
+.page-nav-card { background: var(--lin); border: 1px solid var(--lin-dark); border-radius: var(--radius-lg); padding: 1.5rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.4rem; transition: border-color 0.2s, transform 0.2s; }
+.page-nav-card:hover { border-color: var(--mauve); transform: translateY(-2px); }
+.page-nav-dir { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-pale); }
+.page-nav-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 300; color: var(--marine); letter-spacing: -0.01em; }
+.page-nav-card.next { text-align: right; }
+footer { background: var(--marine); border-top: 2.5px solid var(--mauve); padding: 1.75rem 3rem; }
+.footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.footer-info { font-size: 12px; font-weight: 300; color: rgba(240,236,226,0.3); line-height: 1.8; }
+.footer-info a { color: var(--mauve-light); text-decoration: none; }
+@media (max-width: 860px) {
+  .sections-grid { grid-template-columns: 1fr; }
+  .age-grid { grid-template-columns: 1fr; }
+  .age-card { border-right: none; border-bottom: 1px solid var(--lin-dark); }
+  .age-card:last-child { border-bottom: none; }
+  .hero-inner { grid-template-columns: 1fr; }
+  nav, .hero, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.hero-inner > * { animation: fadeUp 0.5s ease both; }
+.hero-inner > *:nth-child(2) { animation-delay: 0.1s; }
+.section-block, .age-card, .reflection-box { animation: fadeUp 0.5s ease both; }
+.forum-box { background: var(--cream); border: 1.5px solid var(--mauve); border-radius: var(--radius-lg); padding: 2.25rem 2rem; margin-bottom: 4rem; }
+.forum-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mauve); margin-bottom: 0.4rem; }
+.forum-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 300; color: var(--marine); letter-spacing: -0.01em; margin-bottom: 1.75rem; }
+.forum-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.forum-item { background: var(--lin); border-radius: var(--radius-sm); padding: 1.25rem; border-left: 3px solid var(--mauve); }
+.forum-q { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mauve); margin-bottom: 0.6rem; }
+.forum-item p { font-size: 0.85rem; font-weight: 300; color: var(--text-soft); line-height: 1.65; }
+
+/* ── VARSELKORT ── */
+.warning-card {
+  background: var(--marine);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  border-left: 4px solid var(--mauve);
+}
+
+.warning-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.warning-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.warning-text { flex: 1; }
+
+.warning-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin-bottom: 0.4rem;
+}
+
+.warning-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.85rem;
+  line-height: 1.2;
+}
+
+.warning-body {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(240,236,226,0.55);
+  line-height: 1.7;
+  margin-bottom: 1.1rem;
+  max-width: 620px;
+}
+
+.warning-body strong {
+  color: rgba(240,236,226,0.8);
+  font-weight: 500;
+}
+
+.warning-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.warning-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(240,236,226,0.45);
+  line-height: 1.5;
+}
+
+.warning-list li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--mauve);
+  flex-shrink: 0;
+  margin-top: 0.4em;
+  opacity: 0.7;
+}
+
+.warning-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--mauve);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0.65rem 1.25rem;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: center;
+  transition: opacity 0.15s, transform 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.warning-link:hover { opacity: 0.85; transform: translateY(-1px); }
+.warning-link svg { width: 12px; height: 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-bubble">KI</div>
+    <span class="nav-wordmark">GenAI i barnehagen</span>
+  </a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+    Tilbake til oversikt
+  </a>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-breadcrumb">
+        <span>For de voksne</span>
+        <span>·</span>
+        Logistikk
+      </div>
+      <h1>Administrativ<br>støtte</h1>
+      <div class="hero-subtitle">Frigjøre tid til det som teller</div>
+      <p class="hero-desc">
+        Dette er «kontorarbeidet» som gjøres effektivt for å maksimere tiden ute hos barna. Her er KI din personlige assistent for drift og organisering — slik at den profesjonelle energien kan brukes der den virkelig trengs.
+      </p>
+    </div>
+    <div>
+      <img src="administrativ_stotte.png" alt="Administrativ støtte illustrasjon" style="width:340px; height:340px; object-fit:contain;"/>
+    </div>
+  </div>
+</header>
+
+<main class="content">
+
+  <p class="content-intro">
+    Barnehagelærere bruker verdifull tid på dokumentasjon, kommunikasjon og planlegging som KI kan hjelpe til å effektivisere. Målet er ikke å erstatte det profesjonelle arbeidet — men å fjerne friksjon slik at mer tid kan brukes på relasjoner og pedagogikk.
+  </p>
+
+  <div class="sections-grid">
+
+    <div class="section-block">
+      <div class="block-label">Informasjonsbehandling</div>
+      <div class="block-title">Strukturere og oppsummere</div>
+      <ul class="block-items">
+        <li>Bruke KI til å oppsummere lange dokumenter og styringsdokumenter</li>
+        <li>Sortere uformelle notater og observasjoner i mapper og kategorier</li>
+        <li>Lage utkast til referater fra samarbeidsmøter og personalmøter</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Sikkerhet og risiko</div>
+      <div class="block-title">Objektive sjekklister og vurderinger</div>
+      <ul class="block-items">
+        <li>Generere objektive sjekklister for sikkerhet på turer og utflukter</li>
+        <li>Lage risikovurderinger for ulike aktiviteter og utemiljøer</li>
+        <li>Strukturere HMS-dokumentasjon på en ryddig og tilgjengelig måte</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Kommunikasjonsflyt</div>
+      <div class="block-title">Tydelige beskjeder til foreldre</div>
+      <ul class="block-items">
+        <li>Utforme praktiske beskjeder om ukeplaner og påminnelser om utstyr</li>
+        <li>Skrive informasjon om dugnader og arrangementer på en innbydende måte</li>
+        <li>Tilpasse tone og språknivå til ulike mottakergrupper</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Planlegging av ressurser</div>
+      <div class="block-title">Oversikt og organisering</div>
+      <ul class="block-items">
+        <li>Lage matmenyer og oversikt over innkjøp til formingsaktiviteter</li>
+        <li>Holde oversikt over materiell, utstyr og innkjøpsbehov</li>
+        <li>Strukturere innkjøpslister og budsjett for avdelingen</li>
+        <li style="color:var(--mauve); font-style:italic;">Vaktlister og ferieavvikling inneholder personopplysninger om ansatte — dette skal kun håndteres i godkjente systemer med databehandleravtale, ikke i kommersielle KI-verktøy.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="reflection-box">
+    <div class="reflection-label">Pedagogisk perspektiv</div>
+    <blockquote>
+      Tid er den mest verdifulle ressursen i barnehagen. Hver time spart på administrasjon er en time ekstra til å se barna, delta i leken og bygge relasjoner som varer.
+    </blockquote>
+  </div>
+
+  <!-- REFLEKSJONSFORUM -->
+  <div class="forum-box">
+    <div class="forum-label">Refleksjon for personalet</div>
+    <div class="forum-title">Spørsmål til drøfting</div>
+    <div class="forum-grid">
+      <div class="forum-item">
+        <div class="forum-q">Hva er «frigjort tid» verdt?</div>
+        <p>Hvis KI sparer oss tid på dokumentasjon — hva bruker vi den frigjorte tiden til? Ender den opp med mer administrasjon, eller faktisk mer tid med barna?</p>
+      </div>
+      <div class="forum-item">
+        <div class="forum-q">Hvem eier dokumentasjonen?</div>
+        <p>Pedagogisk dokumentasjon er kunnskap om barnet. Hva skjer med denne kunnskapen når den er lagt inn i og bearbeidet av et KI-verktøy? Eier barnehagen fortsatt fortellingen?</p>
+      </div>
+      <div class="forum-item">
+        <div class="forum-q">Effektivitet vs. nærhet</div>
+        <p>Barnehagen er ikke en bedrift — men vi bruker bedriftsverktøy. Når grensen mellom effektiv drift og omsorgsfull pedagogikk viskes ut, hva mister vi?</p>
+      </div>
+      <div class="forum-item">
+        <div class="forum-q">Ansvar og verktøy</div>
+        <p>Når KI lager et utkast til risikovurdering og noe går galt på tur — hvem har ansvaret? Hva betyr det at pedagogen alltid må «vurdere og tilpasse»?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="age-section">
+    <div class="age-section-label">Kontekst</div>
+    <div class="age-section-title">Praktiske eksempler fra hverdagen</div>
+    <div class="age-grid">
+      <div class="age-card">
+        <div class="age-tag">Tur og utflukt</div>
+        <div class="age-card-title">Risikovurdering på sekunder</div>
+        <p>«Hva må vi sjekke før vi tar med 15 barn til en gård?»<br><br>KI kan generere en komplett sjekkliste over sikkerhet, allergier, nødnumre, utstyr og transportlogistikk. Pedagogen vurderer og tilpasser.</p>
+      </div>
+      <div class="age-card">
+        <div class="age-tag">Dokumentasjon</div>
+        <div class="age-card-title">Fra notat til strukturert tekst</div>
+        <p>KI kan hjelpe med å strukturere observasjonsnotater til pedagogisk dokumentasjon knyttet til Rammeplanen.<br><br>Uten at du trenger å sitte lenge foran PC-en.<br><br><strong style="color:var(--mauve);">Merk:</strong> Observasjonsnotater om enkeltbarn er personopplysninger — også uten navn. Anonymiser grundig eller beskriv situasjonen generelt før du bruker KI. Bruk kun godkjente verktøy med databehandleravtale til slikt arbeid.</p>
+      </div>
+      <div class="age-card">
+        <div class="age-tag">Kommunikasjon</div>
+        <div class="age-card-title">Månedsbrev på 10 minutter</div>
+        <p>Gi KI stikkordene fra måneden — hva dere har gjort, hva barna har lært, hva som kommer.<br><br>Få et ferdig utkast til månedsbrev som du kan redigere og personliggjøre på få minutter.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARSELKORT -->
+  <div class="warning-card">
+    <div class="warning-left">
+      <svg class="warning-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 4 L44 40 H4 Z" fill="rgba(158,122,138,0.15)" stroke="#9e7a8a" stroke-width="2" stroke-linejoin="round"/>
+        <line x1="24" y1="18" x2="24" y2="29" stroke="#9e7a8a" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="24" cy="34.5" r="1.75" fill="#9e7a8a"/>
+      </svg>
+      <div class="warning-text">
+        <div class="warning-label">Pass på</div>
+        <div class="warning-title">Hvor mye informasjon gir du fra deg?</div>
+        <div class="warning-body">
+          Kommersielle KI-verktøy lagrer instruksene dine på servere du ikke har kontroll over.
+          <strong>KI-verktøy kan lage profiler av deg og din bruk</strong> — brukt til målrettet reklame eller andre formål du ikke styrer.
+          Del aldri personopplysninger om barn, foresatte eller kolleger. Bruk kun åpen, ikke-konfidensiell informasjon.
+        </div>
+        <ul class="warning-list">
+          <li>Aldri del personopplysninger om barn eller foresatte</li>
+          <li>Aldri del konfidensiell informasjon eller interne dokumenter</li>
+          <li>Det du skriver kan bli en del av modellens treningsdata</li>
+          <li>Instrukser kan deles med ukjente tredjeparter eller selges</li>
+          <li>Din bruk kan danne grunnlag for profilering av deg</li>
+        </ul>
+      </div>
+    </div>
+    <a class="warning-link" href="ki-leverandorer.html">
+      <span>Hvilken KI-løsning har din barnehage?</span>
+      <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 2l5 4.5L5 11"/></svg>
+    </a>
+  </div>
+
+  <nav class="page-nav">
+    <a class="page-nav-card" href="inkluderende-fellesskap.html">
+      <div class="page-nav-dir">← Forrige</div>
+      <div class="page-nav-title">Inkluderende fellesskap</div>
+    </a>
+    <a class="page-nav-card next" href="interaksjon.html">
+      <div class="page-nav-dir">Neste →</div>
+      <div class="page-nav-title">Interaksjon</div>
+    </a>
+  </nav>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <div class="nav-bubble">KI</div>
+      <span class="nav-wordmark">GenAI i barnehagen</span>
+    </div>
+    <div class="footer-info">
+      Mari-Ann Letnes &nbsp;·&nbsp; NTNU &nbsp;·&nbsp;
+      <a href="mailto:mari.ann.letnes@ntnu.no">mari.ann.letnes@ntnu.no</a><br>
+      Presentert på NKUL 2026, Trondheim
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

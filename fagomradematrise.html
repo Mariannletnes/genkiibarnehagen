@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fagområdematrise · GenAI i barnehagen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --marine:      #1e2a45;
+  --marine-deep: #161f33;
+  --sage:        #5e6e67;
+  --mauve:       #9e7a8a;
+  --mauve-light: #c9a0b0;
+  --cream:       #f0ece2;
+  --lin:         #d9d5cc;
+  --lin-dark:    #cac6bc;
+  --warmgray:    #555250;
+  --text:        #1e2a45;
+  --text-soft:   #5a5650;
+  --text-pale:   #9a9590;
+  --radius-lg:   14px;
+  --radius-sm:   8px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  color: var(--text);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--marine);
+  padding: 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2.5px solid var(--mauve);
+}
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+.nav-bubble { width: 30px; height: 30px; background: var(--mauve); border-radius: 6px 6px 6px 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #fff; flex-shrink: 0; }
+.nav-wordmark { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); }
+.nav-back { display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; font-weight: 300; transition: color 0.15s; }
+.nav-back:hover { color: rgba(255,255,255,0.8); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--marine);
+  padding: 4rem 3rem 3.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; }
+.hero-kicker { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mauve); margin-bottom: 1rem; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1.1; }
+.hero-desc { font-size: 0.95rem; font-weight: 300; color: rgba(240,236,226,0.45); max-width: 500px; line-height: 1.75; }
+
+/* Download buttons */
+.download-wrap { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-end; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; border-radius: 100px; font-size: 12px; font-weight: 400; cursor: pointer; transition: opacity 0.15s, transform 0.15s; letter-spacing: 0.02em; border: none; font-family: 'DM Sans', sans-serif; }
+.btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-pdf { background: var(--mauve); color: #fff; }
+.btn-reset { background: rgba(255,255,255,0.08); color: rgba(240,236,226,0.6); border: 1px solid rgba(255,255,255,0.12); }
+.btn svg { width: 13px; height: 13px; }
+
+/* ── CONTENT ── */
+.content { max-width: 1200px; margin: 0 auto; padding: 3rem 3rem 5rem; }
+
+/* Legend */
+.legend { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 12px; color: var(--text-soft); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── TABLE ── */
+.table-wrap { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--lin-dark); }
+
+table { width: 100%; border-collapse: collapse; }
+
+/* Header row */
+thead tr th {
+  background: var(--marine);
+  color: rgba(240,236,226,0.7);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+thead tr th:first-child { color: rgba(240,236,226,0.4); min-width: 180px; }
+thead tr th:last-child { border-right: none; }
+
+/* Column header colors */
+thead tr th:nth-child(2) { color: var(--mauve-light); border-bottom: 2px solid var(--mauve); }
+thead tr th:nth-child(3) { color: var(--mauve-light); border-bottom: 2px solid var(--mauve); }
+thead tr th:nth-child(4) { color: var(--mauve-light); border-bottom: 2px solid var(--mauve); }
+thead tr th:nth-child(5) { color: var(--mauve-light); border-bottom: 2px solid var(--mauve); }
+
+/* Body rows */
+tbody tr:nth-child(odd)  { background: var(--cream); }
+tbody tr:nth-child(even) { background: var(--lin); }
+
+tbody tr td {
+  padding: 0;
+  border-right: 1px solid var(--lin-dark);
+  border-bottom: 1px solid var(--lin-dark);
+  vertical-align: top;
+}
+tbody tr td:last-child { border-right: none; }
+tbody tr:last-child td { border-bottom: none; }
+
+/* Row label */
+.row-label {
+  padding: 1rem 1.1rem;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--marine);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+/* ── CELL ── */
+.cell {
+  position: relative;
+  min-height: 90px;
+  cursor: pointer;
+}
+
+.cell-inner {
+  position: relative;
+  min-height: 90px;
+  padding: 0.65rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Suggestion chip */
+.suggestion {
+  display: none;
+  background: rgba(158,122,138,0.12);
+  border: 1px dashed var(--mauve);
+  border-radius: 6px;
+  padding: 0.45rem 0.6rem;
+  font-size: 11px;
+  color: var(--mauve);
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.suggestion:hover { background: rgba(158,122,138,0.2); }
+.suggestion-label { font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mauve); opacity: 0.6; margin-bottom: 2px; }
+
+/* Show suggestion on hover if cell is empty */
+.cell:hover .suggestion.has-content { display: block; }
+.cell.focused .suggestion.has-content { display: block; }
+
+/* Textarea */
+.cell-textarea {
+  width: 100%;
+  min-height: 70px;
+  border: none;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  padding: 0;
+}
+
+.cell-textarea::placeholder { color: var(--text-pale); font-style: italic; font-size: 11px; }
+
+/* Cell states */
+.cell.has-text .cell-inner { background: rgba(94,110,103,0.06); }
+.cell.has-text { border-left: 2.5px solid var(--sage); }
+
+/* Accept suggestion button */
+.accept-btn {
+  display: none;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--mauve);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  letter-spacing: 0.04em;
+  font-family: 'DM Sans', sans-serif;
+}
+.accept-btn:hover { text-decoration: underline; }
+.suggestion.has-content .accept-btn { display: block; }
+
+/* Hover highlight */
+.cell:hover .cell-inner { background: rgba(158,122,138,0.04); }
+.cell.focused .cell-inner { background: rgba(158,122,138,0.07); outline: none; }
+
+/* ── PRINT STYLES ── */
+@media print {
+  nav, .download-wrap, .legend, .btn, .suggestion, .accept-btn { display: none !important; }
+  body { background: #fff; }
+  .hero { background: #fff; padding: 1rem 0 1.5rem; border: none; }
+  .hero h1 { color: #1e2a45; font-size: 1.8rem; }
+  .hero-kicker { color: #5e6e67; }
+  .hero-desc { color: #5a5650; }
+  .content { padding: 0; }
+  .table-wrap { border: 1px solid #ccc; border-radius: 0; }
+  thead tr th { background: #1e2a45 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  tbody tr:nth-child(odd) { background: #fff !important; }
+  tbody tr:nth-child(even) { background: #f5f5f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .cell-textarea { font-size: 11px; }
+  .cell.has-text { border-left: 2px solid #5e6e67; }
+  .hero-inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 860px) {
+  .table-wrap { overflow-x: auto; }
+  nav, .hero, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .download-wrap { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+}
+
+/* ── FOOTER ── */
+footer { background: var(--marine); border-top: 2.5px solid var(--mauve); padding: 1.75rem 3rem; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.footer-info { font-size: 12px; font-weight: 300; color: rgba(240,236,226,0.3); line-height: 1.8; }
+.footer-info a { color: var(--mauve-light); text-decoration: none; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.table-wrap { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-bubble">KI</div>
+    <span class="nav-wordmark">GenAI i barnehagen</span>
+  </a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+    Tilbake til oversikt
+  </a>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker">Ressurs · Rammeplanen</div>
+      <h1>Fagområdematrise</h1>
+      <p class="hero-desc">
+        Klikk i en celle for å skrive egne eksempler. Hold musepekeren over cellen for å se forslag. Klikk «Ta i bruk» for å legge forslaget inn i cellen. Last ned som PDF når du er ferdig.
+      </p>
+    </div>
+    <div class="download-wrap">
+      <button class="btn btn-pdf" onclick="window.print()">
+        <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 9v2h9V9M6.5 1v7M4 6l2.5 2.5L9 6"/></svg>
+        Last ned som PDF
+      </button>
+      <button class="btn btn-reset" onclick="resetAll()">
+        <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6.5A4.5 4.5 0 1 0 6.5 2M2 2v4h4"/></svg>
+        Nullstill
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="content">
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--mauve); border: 1px dashed var(--mauve);"></div>
+      Hold over celle for å se forslag
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:var(--sage);"></div>
+      Utfylte celler markeres med grønn kant
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:rgba(158,122,138,0.15); border: 1px solid var(--mauve);"></div>
+      Klikk i celle for å skrive fritt
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table id="matrix">
+      <thead>
+        <tr>
+          <th>Fagområde</th>
+          <th>Interaksjon</th>
+          <th>Kommunikasjon</th>
+          <th>Visualisering</th>
+          <th>Simulering</th>
+        </tr>
+      </thead>
+      <tbody id="matrix-body">
+        <!-- Rows generated by JS -->
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <div class="nav-bubble">KI</div>
+      <span class="nav-wordmark">GenAI i barnehagen</span>
+    </div>
+    <div class="footer-info">
+      Mari-Ann Letnes &nbsp;·&nbsp; NTNU &nbsp;·&nbsp;
+      <a href="mailto:mari.ann.letnes@ntnu.no">mari.ann.letnes@ntnu.no</a><br>
+      Presentert på NKUL 2026, Trondheim
+    </div>
+  </div>
+</footer>
+
+<script>
+const fagomrader = [
+  'Kommunikasjon, språk og tekst',
+  'Kunst, kultur og kreativitet',
+  'Natur, miljø og teknologi',
+  'Etikk, religion og filosofi',
+  'Kropp, bevegelse, mat og helse',
+  'Nærmiljø og samfunn',
+  'Antall, rom og form'
+];
+
+const kategorier = ['interaksjon', 'kommunikasjon', 'visualisering', 'simulering'];
+
+// Forhåndsutfylte forslag per fagområde × kategori
+const forslag = {
+  'Kommunikasjon, språk og tekst': {
+    interaksjon:    'Barn stiller KI spørsmål om ord og betydninger — KI svarer og barna utfordrer svarene tilbake.',
+    kommunikasjon:  'Barna dikterer en fortelling som KI transkriberer og leser høyt — barnet hører sin egen stemme.',
+    visualisering:  'Barna beskriver en bokkarakter med ord og ser den materialisere seg som bilde.',
+    simulering:     'KI leser en fortelling med stemme og lydlandskap — barna dramatiserer den fysisk i rommet.'
+  },
+  'Kunst, kultur og kreativitet': {
+    interaksjon:    'Barn synger eller lager lyder — KI genererer musikk som svarer på stemmene deres.',
+    kommunikasjon:  'Barna lager en digital bildebok ved å diktere tekst og se KI illustrere siden for side.',
+    visualisering:  'Barn beskriver et fantasikunstverk — KI visualiserer det i ulike stiler (maleri, tegneserie, foto).',
+    simulering:     'KI projiserer en kunstner sitt atelier — barna beveger seg rundt og «maler» i luften.'
+  },
+  'Natur, miljø og teknologi': {
+    interaksjon:    'Barna spør KI om naturfenomener og tester svarene ved å gå ut og observere selv.',
+    kommunikasjon:  'Barn forteller om et dyr de har sett — KI hjelper med å lage en faktaside om dyret.',
+    visualisering:  'KI visualiserer livssyklusen til en sommerfugl eller et frø — barna tegner det etterpå.',
+    simulering:     'KI simulerer årstidsskifte eller vær — barna kler seg og beveger seg som om de er ute i det.'
+  },
+  'Etikk, religion og filosofi': {
+    interaksjon:    'Barna stiller KI et etisk dilemma — pedagogen leder samtalen om KI-ens svar kan stoles på.',
+    kommunikasjon:  'Barna forteller hva de synes er rettferdig — KI hjelper å formulere en «barnelov» for avdelingen.',
+    visualisering:  'KI visualiserer ulike familieformer og kulturer — utgangspunkt for samtale om mangfold.',
+    simulering:     'KI setter scenen for et rollespill om å inkludere noen som er utenfor — barna løser det fysisk.'
+  },
+  'Kropp, bevegelse, mat og helse': {
+    interaksjon:    'Barna beveger seg — KI registrerer bevegelsen og viser animasjoner som reagerer på kroppen.',
+    kommunikasjon:  'Barn lager sin egen «helsebok» ved å fortelle om mat de liker og KI illustrerer den.',
+    visualisering:  'KI visualiserer hvordan kroppen bruker mat som energi — i et enkelt, barnevennlig bilde.',
+    simulering:     'KI simulerer en hinderløype i jungelen — barna bygger den fysisk av matter og klatrer gjennom.'
+  },
+  'Nærmiljø og samfunn': {
+    interaksjon:    'Barna spør KI om yrker og steder i nærmiljøet — planlegger et besøk basert på svarene.',
+    kommunikasjon:  'Barna lager en digital «guide til barnehagen» ved å fortelle om sine favorittplasser.',
+    visualisering:  'KI tegner et kart over nærmiljøet basert på barnas beskrivelser — de korrigerer det.',
+    simulering:     'KI setter scenen for en butikk eller brannstasjon — barna rollespiller yrkene i rommet.'
+  },
+  'Antall, rom og form': {
+    interaksjon:    'Barna stiller KI matematiske spørsmål og diskuterer om svarene virker riktige.',
+    kommunikasjon:  'Barna beskriver former de ser rundt seg — KI hjelper dem å lage et geometrisk mønster.',
+    visualisering:  'KI visualiserer tall som tårn, rekker og grupper — barna bygger dem fysisk med klosser.',
+    simulering:     'KI simulerer en butikk med priser — barna handler, betaler og gir vekslepenger i leken.'
+  }
+};
+
+// Build table
+const tbody = document.getElementById('matrix-body');
+
+fagomrader.forEach((fag, ri) => {
+  const tr = document.createElement('tr');
+
+  // Row label
+  const labelTd = document.createElement('td');
+  labelTd.innerHTML = `<div class="row-label">${fag}</div>`;
+  tr.appendChild(labelTd);
+
+  kategorier.forEach(kat => {
+    const id = `cell-${ri}-${kat}`;
+    const suggestion = forslag[fag][kat];
+
+    const td = document.createElement('td');
+    td.className = 'cell';
+    td.dataset.id = id;
+
+    td.innerHTML = `
+      <div class="cell-inner">
+        <div class="suggestion has-content">
+          <div class="suggestion-label">Forslag</div>
+          ${suggestion}
+          <button class="accept-btn" onclick="acceptSuggestion('${id}', this)">↓ Ta i bruk</button>
+        </div>
+        <textarea
+          class="cell-textarea"
+          id="${id}"
+          placeholder="Skriv eksempel..."
+          rows="3"
+          oninput="updateCellState(this)"
+          onfocus="this.closest('.cell').classList.add('focused')"
+          onblur="this.closest('.cell').classList.remove('focused')"
+        ></textarea>
+      </div>
+    `;
+
+    tr.appendChild(td);
+  });
+
+  tbody.appendChild(tr);
+});
+
+// Show suggestion on cell hover
+document.querySelectorAll('.cell').forEach(cell => {
+  cell.addEventListener('mouseenter', () => {
+    const s = cell.querySelector('.suggestion');
+    if (s) s.style.display = 'block';
+  });
+  cell.addEventListener('mouseleave', () => {
+    if (!cell.classList.contains('focused')) {
+      const s = cell.querySelector('.suggestion');
+      if (s) s.style.display = 'none';
+    }
+  });
+});
+
+function updateCellState(textarea) {
+  const cell = textarea.closest('.cell');
+  if (textarea.value.trim()) {
+    cell.classList.add('has-text');
+  } else {
+    cell.classList.remove('has-text');
+  }
+  // Auto-grow
+  textarea.style.height = 'auto';
+  textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+function acceptSuggestion(id, btn) {
+  const textarea = document.getElementById(id);
+  const suggestionDiv = btn.closest('.suggestion');
+  // Get text without the button and label
+  const text = suggestionDiv.childNodes[2].textContent.trim();
+  textarea.value = text;
+  updateCellState(textarea);
+  suggestionDiv.style.display = 'none';
+  textarea.focus();
+}
+
+function resetAll() {
+  if (!confirm('Nullstill alle celler?')) return;
+  document.querySelectorAll('.cell-textarea').forEach(ta => {
+    ta.value = '';
+    ta.style.height = 'auto';
+    ta.closest('.cell').classList.remove('has-text');
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .wrap { font-family: 'DM Sans', sans-serif; padding: 1rem 0 1.5rem; }
+  .title { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1.5rem; }
+  .group { margin-bottom: 1.75rem; }
+  .group-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 0.75rem; }
+  .swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { display: flex; flex-direction: column; gap: 6px; width: 90px; }
+  .swatch-block { height: 56px; border-radius: 8px; }
+  .swatch-name { font-size: 11px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+  .swatch-hex { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .swatch-use { font-size: 10px; color: var(--color-text-tertiary); line-height: 1.4; margin-top: 1px; }
+  .divider { height: 1px; background: var(--color-border-tertiary); margin: 1.5rem 0; }
+  /* Rosa-gradienten */
+  .swatch-block.rose-1 { background: #c9a0b0; }
+  .swatch-block.rose-2 { background: #b8899a; }
+  .swatch-block.rose-3 { background: #a87589; }
+</style>
+
+<div class="wrap">
+  <div class="title">Fargepalett · GenAI i barnehagen</div>
+
+  <!-- PRIMÆRFARGER -->
+  <div class="group">
+    <div class="group-label">Primærfarger</div>
+    <div class="swatches">
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#1e2a45;"></div>
+        <div class="swatch-name">Marine</div>
+        <div class="swatch-hex">#1e2a45</div>
+        <div class="swatch-use">Nav, hero, footer, sitatkort</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#161f33;"></div>
+        <div class="swatch-name">Marine dyp</div>
+        <div class="swatch-hex">#161f33</div>
+        <div class="swatch-use">Avslutningskort, dype seksjoner</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#2f5445;"></div>
+        <div class="swatch-name">Skoggrønn</div>
+        <div class="swatch-hex">#2f5445</div>
+        <div class="swatch-use">Labels «for de voksne», prikker, hover-linje</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#9e7a8a; border: 1px solid rgba(0,0,0,0.06);"></div>
+        <div class="swatch-name">Mauve</div>
+        <div class="swatch-hex">#9e7a8a</div>
+        <div class="swatch-use">Nav-boble, border, aksent «med barna»</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#c9a0b0; border: 1px solid rgba(0,0,0,0.06);"></div>
+        <div class="swatch-name">Mauve lys</div>
+        <div class="swatch-hex">#c9a0b0</div>
+        <div class="swatch-use">Kursiv tittel i hero, labels i mørke seksjoner</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- NØYTRALE -->
+  <div class="group">
+    <div class="group-label">Nøytrale flater</div>
+    <div class="swatches">
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#f0ece2; border: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="swatch-name">Krem</div>
+        <div class="swatch-hex">#f0ece2</div>
+        <div class="swatch-use">Sidefarge, alderskort-bakgrunn</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#d9d5cc; border: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="swatch-name">Lin</div>
+        <div class="swatch-hex">#d9d5cc</div>
+        <div class="swatch-use">Innholdskort, navigasjonskort</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#cac6bc; border: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="swatch-name">Lin mørk</div>
+        <div class="swatch-hex">#cac6bc</div>
+        <div class="swatch-use">Kortborder, skillelinjer</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#555250;"></div>
+        <div class="swatch-name">Varm grå</div>
+        <div class="swatch-hex">#555250</div>
+        <div class="swatch-use">Refleksjonsseksjon, epistemologi</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TEKST -->
+  <div class="group">
+    <div class="group-label">Tekstfarger</div>
+    <div class="swatches">
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#1e2a45;"></div>
+        <div class="swatch-name">Primær</div>
+        <div class="swatch-hex">#1e2a45</div>
+        <div class="swatch-use">Overskrifter, brødtekst</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#5a5650;"></div>
+        <div class="swatch-name">Myk</div>
+        <div class="swatch-hex">#5a5650</div>
+        <div class="swatch-use">Brødtekst i kort</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block" style="background:#9a9590; border: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="swatch-name">Blek</div>
+        <div class="swatch-hex">#9a9590</div>
+        <div class="swatch-use">Labels, metadata, nav-lenker</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ROSA GRADIENT -->
+  <div class="group">
+    <div class="group-label">Rosa kortgradient · kun på hovedpoenger-siden</div>
+    <div class="swatches">
+
+      <div class="swatch">
+        <div class="swatch-block rose-1" style="border: 1px solid rgba(0,0,0,0.06);"></div>
+        <div class="swatch-name">Rosa 1</div>
+        <div class="swatch-hex">#c9a0b0</div>
+        <div class="swatch-use">Kort 01 — Balanse</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block rose-2" style="border: 1px solid rgba(0,0,0,0.06);"></div>
+        <div class="swatch-name">Rosa 2</div>
+        <div class="swatch-hex">#b8899a</div>
+        <div class="swatch-use">Kort 02 — Mennesket</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-block rose-3" style="border: 1px solid rgba(0,0,0,0.06);"></div>
+        <div class="swatch-name">Rosa 3</div>
+        <div class="swatch-hex">#a87589</div>
+        <div class="swatch-use">Kort 03 — KI-skam</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

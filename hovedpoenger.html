@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tre hovedpoenger · GenAI i barnehagen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --marine:      #1e2a45;
+  --marine-deep: #161f33;
+  --forest:      #5e6e67;
+  --mauve:       #9e7a8a;
+  --mauve-light: #c9a0b0;
+  --cream:       #f0ece2;
+  --lin:         #d9d5cc;
+  --lin-dark:    #cac6bc;
+  --warmgray:    #555250;
+  --text:        #1e2a45;
+  --text-soft:   #5a5650;
+  --text-pale:   #9a9590;
+  --radius-lg:   14px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  color: var(--text);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--marine);
+  padding: 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2.5px solid var(--mauve);
+  flex-shrink: 0;
+}
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+.nav-bubble { width: 30px; height: 30px; background: var(--mauve); border-radius: 6px 6px 6px 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #fff; flex-shrink: 0; }
+.nav-wordmark { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); }
+.nav-back { display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; font-weight: 300; transition: color 0.15s; }
+.nav-back:hover { color: rgba(255,255,255,0.8); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* ── MAIN ── */
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+}
+
+/* ── KORT ── */
+.card {
+  background: var(--marine);
+  border-radius: 20px;
+  padding: 4.5rem 4rem;
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  animation: fadeUp 0.6s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin-bottom: 1.5rem;
+}
+
+.card h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+
+.card-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(240,236,226,0.45);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto 3rem;
+}
+
+/* ── KORT ── */
+.points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: left;
+  margin-top: 0.5rem;
+}
+
+.point {
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  animation: fadeUp 0.5s ease both;
+  transition: transform 0.2s;
+}
+
+.point:hover { transform: translateY(-3px); }
+
+.point:nth-child(1) { animation-delay: 0.15s; background: #c9a0b0; }
+.point:nth-child(2) { animation-delay: 0.3s;  background: #b8899a; }
+.point:nth-child(3) { animation-delay: 0.45s; background: #a87589; }
+
+.point-num {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(30,42,69,0.45);
+}
+
+.point-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--marine);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.point-text {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(30,42,69,0.65);
+  line-height: 1.65;
+}
+
+/* ── BUNN-NAV ── */
+.bottom-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--mauve);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.08);
+  color: rgba(240,236,226,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn svg { width: 13px; height: 13px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--marine);
+  border-top: 2.5px solid var(--mauve);
+  padding: 1.75rem 3rem;
+  flex-shrink: 0;
+}
+.footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.footer-info { font-size: 12px; font-weight: 300; color: rgba(240,236,226,0.3); line-height: 1.8; }
+.footer-info a { color: var(--mauve-light); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .card { padding: 3rem 1.75rem; }
+  .points { grid-template-columns: 1fr; }
+  nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-bubble">KI</div>
+    <span class="nav-wordmark">GenAI i barnehagen</span>
+  </a>
+  <a class="nav-back" href="simulering.html">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+    Forrige
+  </a>
+</nav>
+
+<main>
+  <div class="card">
+
+    <div class="card-label">Tre hovedpoenger å ta med seg</div>
+
+    <h1>Balanse er alt</h1>
+
+    <p class="card-desc">
+      KI kan være gode verktøy for utdanning — men den tilstedeværende læreren er og blir den avgjørende garantisten for danningsprosjektet.
+    </p>
+
+    <div class="points">
+      <div class="point">
+        <div class="point-num">01</div>
+        <div class="point-title">Balanse er alt</div>
+        <div class="point-text">KI er et verktøy — pedagogen er og blir den avgjørende garantisten for danningsprosjektet.</div>
+      </div>
+      <div class="point">
+        <div class="point-num">02</div>
+        <div class="point-title">Mennesket i sentrum</div>
+        <div class="point-text">Vi må utvikle KI-løsninger der barn og lærere har reell kontroll og eierskap.</div>
+      </div>
+      <div class="point">
+        <div class="point-num">03</div>
+        <div class="point-title">Legg bort KI-skammen</div>
+        <div class="point-text">Vi trenger en åpen, nysgjerrig og kritisk kultur der vi tør å snakke ærlig om både muligheter og utfordringer.</div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a class="btn btn-secondary" href="simulering.html">
+        <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L3 6.5 8 11"/></svg>
+        Tilbake
+      </a>
+      <a class="btn btn-primary" href="index.html">
+        Til oversikten
+        <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 2l5 4.5L5 11"/></svg>
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <div class="nav-bubble">KI</div>
+      <span class="nav-wordmark">GenAI i barnehagen</span>
+    </div>
+    <div class="footer-info">
+      Mari-Ann Letnes &nbsp;·&nbsp; NTNU &nbsp;·&nbsp;
+      <a href="mailto:mari.ann.letnes@ntnu.no">mari.ann.letnes@ntnu.no</a><br>
+      Presentert på NKUL 2026, Trondheim
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
