@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om · GenAI i barnehagen · Mari-Ann Letnes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --marine:      #1e2a45;
+  --marine-deep: #161f33;
+  --sage:        #5e6e67;
+  --mauve:       #9e7a8a;
+  --mauve-light: #c9a0b0;
+  --cream:       #f0ece2;
+  --lin:         #d9d5cc;
+  --lin-dark:    #cac6bc;
+  --warmgray:    #555250;
+  --text:        #1e2a45;
+  --text-soft:   #5a5650;
+  --text-pale:   #9a9590;
+  --radius-lg:   14px;
+  --radius-sm:   8px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--text); background: var(--cream); -webkit-font-smoothing: antialiased; }
+
+nav { background: var(--marine); padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 54px; position: sticky; top: 0; z-index: 100; border-bottom: 2.5px solid var(--mauve); }
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+.nav-bubble { width: 30px; height: 30px; background: var(--mauve); border-radius: 6px 6px 6px 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #fff; flex-shrink: 0; }
+.nav-wordmark { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); }
+.nav-back { display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; font-weight: 300; transition: color 0.15s; }
+.nav-back:hover { color: rgba(255,255,255,0.8); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* HERO */
+.hero { background: var(--marine); padding: 5rem 3rem 4.5rem; }
+.hero-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: center; }
+
+.hero-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 3px solid var(--marine);
+  box-shadow: 0 0 0 4px var(--mauve);
+  flex-shrink: 0;
+}
+
+.hero-kicker { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mauve); margin-bottom: 0.75rem; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1.1; }
+.hero-title { font-size: 13px; font-weight: 300; color: rgba(240,236,226,0.45); margin-bottom: 0.25rem; }
+.hero-inst { font-size: 13px; font-weight: 300; color: rgba(240,236,226,0.3); }
+
+/* CONTENT */
+.content { max-width: 1080px; margin: 0 auto; padding: 5rem 3rem 6rem; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+
+.section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; }
+.section-heading { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 300; color: var(--text); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+
+.body-text { font-size: 0.92rem; font-weight: 300; color: var(--text-soft); line-height: 1.8; }
+.body-text p + p { margin-top: 1rem; }
+.body-text a { color: var(--mauve); text-decoration: none; }
+.body-text a:hover { text-decoration: underline; }
+
+.divider { height: 1px; background: var(--lin); margin: 4rem 0; }
+
+/* CC CARD */
+.cc-card {
+  background: var(--marine);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2.25rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 4rem;
+}
+
+.cc-badge {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cc-icons {
+  display: flex;
+  gap: 4px;
+}
+
+.cc-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--mauve);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.cc-text-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--mauve-light);
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.cc-content {}
+.cc-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mauve); margin-bottom: 0.5rem; }
+.cc-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.01em; margin-bottom: 1rem; }
+.cc-desc { font-size: 0.88rem; font-weight: 300; color: rgba(240,236,226,0.55); line-height: 1.75; margin-bottom: 1.25rem; }
+
+.cc-conditions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.cc-cond {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  border-left: 2px solid var(--mauve);
+}
+
+.cc-cond-title { font-size: 11px; font-weight: 500; color: var(--mauve-light); margin-bottom: 0.3rem; }
+.cc-cond p { font-size: 11px; font-weight: 300; color: rgba(240,236,226,0.4); line-height: 1.5; }
+
+.cc-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; font-size: 12px; color: var(--mauve-light); text-decoration: none; }
+.cc-link:hover { text-decoration: underline; }
+
+/* KONTAKT */
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.kontakt-item {
+  background: var(--lin);
+  border: 1px solid var(--lin-dark);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.25rem;
+}
+
+.kontakt-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-pale); margin-bottom: 0.4rem; }
+.kontakt-val { font-size: 0.88rem; font-weight: 300; color: var(--text); }
+.kontakt-val a { color: var(--mauve); text-decoration: none; }
+.kontakt-val a:hover { text-decoration: underline; }
+
+/* SITATBOKS */
+.closing-quote {
+  background: var(--warmgray);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2.25rem;
+  text-align: center;
+}
+.closing-quote blockquote {
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(240,236,226,0.8);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+}
+.closing-attr { font-size: 11px; color: rgba(240,236,226,0.3); letter-spacing: 0.06em; }
+
+footer { background: var(--marine); border-top: 2.5px solid var(--mauve); padding: 1.75rem 3rem; }
+.footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.footer-info { font-size: 12px; font-weight: 300; color: rgba(240,236,226,0.3); line-height: 1.8; }
+.footer-info a { color: var(--mauve-light); text-decoration: none; }
+
+@media (max-width: 860px) {
+  .two-col { grid-template-columns: 1fr; }
+  .cc-card { grid-template-columns: 1fr; }
+  .cc-conditions { grid-template-columns: 1fr; }
+  .kontakt-grid { grid-template-columns: 1fr; }
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero-photo { margin: 0 auto; }
+  nav, .hero, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.cc-card, .kontakt-item { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-bubble">KI</div>
+    <span class="nav-wordmark">GenAI i barnehagen</span>
+  </a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+    Tilbake til oversikt
+  </a>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <img src="mari-ann.jpeg" alt="Mari-Ann Letnes" class="hero-photo">
+    <div>
+      <div class="hero-kicker">Om presentasjonen</div>
+      <h1>Mari-Ann Letnes</h1>
+      <div class="hero-title">Førsteamanuensis i pedagogikk</div>
+      <div class="hero-inst">NTNU — Norges teknisk-naturvitenskapelige universitet</div>
+    </div>
+  </div>
+</header>
+
+<main class="content">
+
+  <div class="two-col">
+    <div>
+      <div class="section-label">Om meg</div>
+      <div class="section-heading">Forsker og pedagog</div>
+      <div class="body-text">
+        <p>Jeg er førsteamanuensis i pedagogikk ved NTNU, med forskning på digital kompetanse, mediedidaktikk og teknologi i barnehage og skole.</p>
+        <p>Denne presentasjonen ble holdt på NKUL 2026 i Trondheim — Norges største møteplass for bruk av IKT i utdanning og læring. Den utforsker hvordan generativ kunstig intelligens kan integreres som en meningsfull del av barnehagekulturen.</p>
+        <p>Mitt utgangspunkt er alltid pedagogen — ikke teknologien. KI er et verktøy i hendene på en profesjonell. Det er mennesket som setter retningen.</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Om nettsiden</div>
+      <div class="section-heading">Hva er dette?</div>
+      <div class="body-text">
+        <p>Denne nettsiden er en digital versjon av presentasjonen «GenAI i barnehagen», designet for å gjøre innholdet tilgjengelig, delbart og reflekterende — også etter at foredraget er over.</p>
+        <p>Siden inneholder åtte tematiske komponenter, interaktive refleksjonsspørsmål for personalet, en fagområdematrise og en oversikt over KI-løsninger for barnehagesektoren.</p>
+        <p>Alt innhold er laget med tanke på barnehagepedagoger, styrere og barnehagelærerutdannere som ønsker å utforske KI med et kritisk og konstruktivt blikk.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CREATIVE COMMONS -->
+  <div class="section-label" style="margin-bottom:0.5rem;">Lisens</div>
+  <div class="section-heading" style="margin-bottom:1.5rem;">Bruk gjerne — men husk å henvise</div>
+
+  <div class="cc-card">
+    <div class="cc-badge">
+      <div class="cc-icons">
+        <div class="cc-icon">CC</div>
+        <div class="cc-icon" style="font-size:18px;">BY</div>
+      </div>
+      <div class="cc-text-badge">CC BY 4.0</div>
+    </div>
+    <div class="cc-content">
+      <div class="cc-label">Creative Commons Navngivelse 4.0 Internasjonal</div>
+      <div class="cc-title">Fritt å bruke — med kreditering til Mari-Ann Letnes</div>
+      <div class="cc-desc">
+        Dette innholdet er publisert under Creative Commons BY 4.0-lisens. Det betyr at du fritt kan bruke, dele, tilpasse og bygge videre på materialet — også i undervisning, kurs og presentasjoner — så lenge du oppgir kilden.
+      </div>
+      <div class="cc-conditions">
+        <div class="cc-cond">
+          <div class="cc-cond-title">✓ Del fritt</div>
+          <p>Kopier og distribuer materialet i hvilket som helst medium eller format.</p>
+        </div>
+        <div class="cc-cond">
+          <div class="cc-cond-title">✓ Tilpass gjerne</div>
+          <p>Bearbeid, transformer og bygg videre på materialet til ethvert formål.</p>
+        </div>
+        <div class="cc-cond">
+          <div class="cc-cond-title">! Husk kreditering</div>
+          <p>Oppgi alltid: Mari-Ann Letnes, NTNU, GenAI i barnehagen, NKUL 2026.</p>
+        </div>
+      </div>
+      <a class="cc-link" href="https://creativecommons.org/licenses/by/4.0/deed.no" target="_blank">
+        Les den fullstendige lisensteksten →
+      </a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- KONTAKT -->
+  <div class="section-label" style="margin-bottom:0.5rem;">Kontakt</div>
+  <div class="section-heading" style="margin-bottom:1.5rem;">Ta gjerne kontakt</div>
+
+  <div class="kontakt-grid">
+    <div class="kontakt-item">
+      <div class="kontakt-label">E-post</div>
+      <div class="kontakt-val"><a href="mailto:mari.ann.letnes@ntnu.no">mari.ann.letnes@ntnu.no</a></div>
+    </div>
+    <div class="kontakt-item">
+      <div class="kontakt-label">Institusjon</div>
+      <div class="kontakt-val"><a href="https://www.ntnu.no" target="_blank">NTNU — ntnu.no</a></div>
+    </div>
+    <div class="kontakt-item">
+      <div class="kontakt-label">Presentert</div>
+      <div class="kontakt-val">NKUL 2026, Trondheim</div>
+    </div>
+  </div>
+
+  <!-- AVSLUTNING -->
+  <div class="closing-quote">
+    <blockquote>
+      Legg bort KI-skammen. Vi trenger en åpen, nysgjerrig og kritisk kultur der vi tør å snakke ærlig om både muligheter og utfordringer.
+    </blockquote>
+    <div class="closing-attr">Mari-Ann Letnes · NKUL 2026</div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <div class="nav-bubble">KI</div>
+      <span class="nav-wordmark">GenAI i barnehagen</span>
+    </div>
+    <div class="footer-info">
+      Mari-Ann Letnes &nbsp;·&nbsp; NTNU &nbsp;·&nbsp;
+      <a href="mailto:mari.ann.letnes@ntnu.no">mari.ann.letnes@ntnu.no</a><br>
+      Presentert på NKUL 2026, Trondheim &nbsp;·&nbsp;
+      <a href="https://creativecommons.org/licenses/by/4.0/deed.no" target="_blank">CC BY 4.0</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
